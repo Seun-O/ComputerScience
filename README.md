@@ -140,6 +140,7 @@ bubbleSort(randomArray);
   swapCount: 26 }
  */
 ```
+![](bubble.gif)
 
 - Insertion Sort
 - Merge Sort
