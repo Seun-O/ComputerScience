@@ -81,20 +81,64 @@ main(10);
 
 > Bubble sort is a simple sorting algorithm that repeatedly steps through the list to be sorted, compares each pair of adjacent items and swaps them if they are in the wrong order. The pass through the list is repeated until no swaps are needed, which indicates that the list is sorted.
 
+_Example_
+
 ```javascript
-function bubbleSort(array) {
-  var swapped;
+function bubbleSort(arr) {
+  let swapped;
+  // Object to Store values to calculate complexity
+  let complexity = {
+    sorted: arr,
+    outerCount: 0,
+    innerCount: 0,
+    swapCount: 0
+  };
   do {
+    complexity.outerCount++;
     swapped = false;
-    for (var i = 0; i < array.length; i++) {
-      if (array[i] && array[i + 1] && array[i] > array[i + 1]) {
-        swap(array, i, i + 1);
+    for (let i = 0; i < arr.length; i++) {
+      complexity.innerCount++;
+      if (arr[i] > arr[i + 1]) {
+        complexity.swapCount++;
+        swap(arr, i);
         swapped = true;
       }
     }
   } while (swapped);
-  return array;
+  return complexity;
 }
+```
+
+_Results_
+
+```javascript
+const orderedArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const reversedArray = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+const randomArray = [9, 10, 1, 5, 7, 2, 4, 6, 8, 3];
+
+bubbleSort(orderedArray);
+/**
+ { sorted: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ],
+  outerCount: 1,
+  innerCount: 10,
+  swapCount: 0 }
+ */
+
+bubbleSort(reversedArray);
+/**
+{ sorted: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ],
+  outerCount: 10,
+  innerCount: 100,
+  swapCount: 45 }
+ */
+
+bubbleSort(randomArray);
+/**
+{ sorted: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ],
+  outerCount: 8,
+  innerCount: 80,
+  swapCount: 26 }
+ */
 ```
 
 - Insertion Sort
