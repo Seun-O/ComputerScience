@@ -71,3 +71,68 @@ bubbleSort(largeArray);
   innerCount: 10201,
   swapCount: 5050 }
  */
+
+// Check if an Array is Unique. Big O(n^2)
+const isUnique = arr => {
+  let result = true;
+
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length; j++) {
+      if (i !== j && arr[i] === arr[j]) {
+        result = false;
+      }
+    }
+  }
+  return result;
+};
+
+console.log(isUnique([1, 1, 2, 2, 3]));
+console.log(isUnique([1, 2, 3]));
+
+// Optimized isUnique Big O(n)
+const isUniqueO = arr => {
+  const cache = {};
+  let result = true;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (cache[arr[i]]) {
+      result = false;
+    } else {
+      cache[arr[i]] = true;
+    }
+  }
+  return result;
+};
+
+console.log(isUniqueO([1, 1, 2, 2, 3]));
+console.log(isUniqueO([1, 2, 3]));
+
+const uniqSort = arr => {
+  const cache = {};
+  let newArray = [];
+  const sorted = arr.sort((a, b) => a - b);
+
+  for (let i = 0; i < sorted.length; i++) {
+    if (!cache[arr[i]]) {
+      newArray.push(arr[i]);
+      cache[arr[i]] = true;
+    }
+  }
+  return newArray;
+};
+
+console.log(uniqSort([1, 5, 2, 1]));
+console.log(uniqSort([4, 2, 2, 3, 2, 2, 2]));
+
+// Memoization
+
+const memoTimes10Closure = n => {
+  const cache = {};
+
+  return function(n) {
+    n * 10;
+  };
+};
+let test10 = memoTimes10Closure(10);
+
+console.log(test10);
