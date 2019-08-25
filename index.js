@@ -1,77 +1,3 @@
-// Bubble Sort
-
-// Function to handle swapping numbers
-function swap(arr, i) {
-  let temp;
-  temp = arr[i];
-  arr[i] = arr[i + 1];
-  arr[i + 1] = temp;
-}
-
-function bubbleSort(arr) {
-  let swapped;
-  // Object to Store values to calculate complexity
-  let complexity = {
-    sorted: arr,
-    outerCount: 0,
-    innerCount: 0,
-    swapCount: 0
-  };
-  do {
-    complexity.outerCount++;
-    swapped = false;
-    for (let i = 0; i < arr.length; i++) {
-      complexity.innerCount++;
-      if (arr[i] > arr[i + 1]) {
-        complexity.swapCount++;
-        swap(arr, i);
-        swapped = true;
-      }
-    }
-  } while (swapped);
-  return complexity;
-}
-const orderedArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const reversedArray = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
-const randomArray = [9, 10, 1, 5, 7, 2, 4, 6, 8, 3];
-
-let largeArray = [];
-for (i = 100; i >= 0; i--) {
-  largeArray.push(i);
-}
-
-bubbleSort(orderedArray);
-/**
- { sorted: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ],
-  outerCount: 1,
-  innerCount: 10,
-  swapCount: 0 }
- */
-
-bubbleSort(reversedArray);
-/**
-{ sorted: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ],
-  outerCount: 10,
-  innerCount: 100,
-  swapCount: 45 }
- */
-
-bubbleSort(randomArray);
-/**
-{ sorted: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ],
-  outerCount: 8,
-  innerCount: 80,
-  swapCount: 26 }
- */
-
-bubbleSort(largeArray);
-/**
-{ sorted: [..., 98, 99, 100]  ,
-  outerCount: 101,
-  innerCount: 10201,
-  swapCount: 5050 }
- */
-
 // Check if an Array is Unique. Big O(n^2)
 const isUnique = arr => {
   let result = true;
@@ -124,15 +50,51 @@ const uniqSort = arr => {
 console.log(uniqSort([1, 5, 2, 1]));
 console.log(uniqSort([4, 2, 2, 3, 2, 2, 2]));
 
-// Memoization
+// Memoization with Closure
 
-const memoTimes10Closure = n => {
-  const cache = {};
-
-  return function(n) {
-    n * 10;
+const times10 = n => n * 10;
+memo = cb => {
+  let cache = {};
+  return (...args) => {
+    let n = args[0];
+    if (n in cache) return cache[n];
+    else {
+      let answer = cb(n);
+      cache[n] = answer;
+      console.log(`calculating: factorial(${n})`);
+      return answer;
+    }
   };
 };
-let test10 = memoTimes10Closure(10);
 
-console.log(test10);
+// Recursion and Loops with factorials
+const factorial = n => {
+  if (n === 1) return 1;
+  return n * factorial(n - 1);
+};
+const mFactorial = memo(factorial);
+console.log(mFactorial(5));
+console.log(mFactorial(5));
+
+const joinElements = (array, joinStr) => {
+  function recurse(index, result) {
+    result += array[index];
+
+    if (index === array.length - 1) {
+      return result;
+    } else {
+      return recurse(index + 1, result + joinStr);
+    }
+  }
+  return recurse(0, "");
+};
+console.log(joinElements(["s", "cr", "t cod", " :):)"], "e"));
+
+function joinElementIteratively(array, joinStr) {
+  let result = "";
+  for (let i = 0; i < array.length - 1; i++) {
+    result += array[i] + joinStr;
+  }
+  return result + array[array.length - 1];
+}
+console.log(joinElementIteratively(["s", "cr", "t cod", " :):)"], "e"));

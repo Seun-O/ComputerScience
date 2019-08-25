@@ -18,6 +18,9 @@ const main = () => {
   console.log("Hello World!");
 };
 main();
+
+const array = ["hi", "my name", "is", 1];
+array[0]; // hi  ==> constant
 ```
 
 **O(log n) – Logarithmic**
@@ -73,7 +76,9 @@ const main = n => {
 main(10);
 ```
 
-**O(n2) – Quadratic**
+**O(n^2) – Quadratic**
+
+_Example:_ Bubble Sort; Double nested loops
 
 ### Sorting Algorithms
 
@@ -140,6 +145,7 @@ bubbleSort(randomArray);
   swapCount: 26 }
  */
 ```
+
 ![](bubble.gif)
 
 - Insertion Sort
